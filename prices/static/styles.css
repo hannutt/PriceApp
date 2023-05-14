@@ -1,0 +1,19 @@
+.inxHead {
+    color:
+    #1179ad;
+    
+}
+body {
+    background-color: aqua;
+}
+.titleBar {
+    background-color: lightblue;
+}
+
+.todo {
+    margin:auto;
+    background-color: yellow;
+    width:50%;
+    
+    border-radius: 10px;
+}

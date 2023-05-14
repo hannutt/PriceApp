@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To Do</title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'styles.css'%}">
+</head>
+
+<body>
+
+    <div class="todo">
+
+        <p hidden>{{DayPlace}}</p>
+        
+    <table>
+
+        <tr>
+            <th colspan="2">Saved Tasks</th>
+        </tr>
+        <!--käydään toistosilmukalla läpi Todo lista-->
+
+        <!--tässä näytetään tietokannasta task ja timelimit sarakkeiden sisältö-->
+
+        <tr>
+
+        </tr>
+        <tr >
+            <th class="titleBar">Task-ID</th>
+            <th class="titleBar">Timelimit</th>
+            <th class="titleBar">Task</th>
+            
+        </tr>
+       
+       
+      
+        {% for item in Todo %}
+        
+        
+       <!--NÄYTETÄÄN SILMUKASSA KÄYDYT ITEMIT ELI TIETOKANNAN TIEDOT-->
+        <tr>
+            <!--ehtolauseiden käyttö html-sivulla jos timelimitin eli tietokannasta
+            tulevan päivämäärän arvo on sama kuin DayPlacessa oleva (eli nykyinen pvm)
+            muutetaan sen tietueen taustaväri punaiseksi -->
+           
+            {% if item.timelimit ==  DayPlace %}
+            <td >{{item.id}}</td>
+            <td style="background-color: red;"  >{{item.timelimit}}</td>
+           
+            <td>{{item.task}}</td>
+            <td >{{timeLeft}}</td>
+          
+          
+            {% else %}
+
+            <td >{{item.id}}</td>
+            <td>{{item.timelimit}}</td>
+           
+            <td>{{item.task}}</td>
+            <td >{{timeLeft}}</td>
+          
+            
+            {% endif %}
+                {%csrf_token %}
+            <td><input type="submit" value="X"></td>
+            </form>
+            <form action="/edit-Task/{{item.id}}/" method="Post">
+                {%csrf_token %}
+           
+            <td><input type="submit" value="Edit"></td>
+        </form>
+            <form action="/time-left/{{item.id}}/">
+            <td><input type="submit" value="Days left"></td>
+        </form>
+      
+        </tr>
+        
+
+        {% endfor %}
+    </table>
+    <b>
+    {{titlePlace}}
+    {{difPlace}}</b>
+    <form action="/save-To-Do/" method="post">
+        {%csrf_token %}
+        <input type="text" name="task" placeholder="Task name">
+        <input type="text" name="time" placeholder="DD.MM.YY">
+        <input type="submit" value="Save">
+        <!--
+            <a href="/prices/saveToDo">Save</a>-->
+    </form>
+
+    <form action="/order-To-Do" method="post">
+        {%csrf_token %}
+        <input type="submit" value="Order desc.">
+    </form>
+</div>
+</body>
+
+</html>

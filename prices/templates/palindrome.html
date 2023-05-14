@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Palindromes</title>
+    </head>
+    <body>
+        <h3>Palindrome checker</h3>
+        <form action="/palindrome-check" method="post">
+            {%csrf_token %}
+        <p>Enter a word:</p>
+        <input type="text" name="word">
+        <input type="submit" value="Check"><br>
+        <b>{{answerPlace}}</b> <br> {{lenPlace}}
+    </form>
+    </body>
+</html>

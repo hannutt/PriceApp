@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Price app</title>
+        
+    
+    <link rel ="stylesheet" href = "https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css">
+  
+    <!--TEKSTINHAKU FUNKTIO-->
+   <script>
+    function btnSearch(text)
+    {
+        var str = document.getElementById("find")
+        if (window.find(text))
+        {
+            
+        }
+        else {
+            alert('Nothing found')
+        }
+    }
+   </script>
+       
+        
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+           
+              <button class="navbar-toggler" type="button"  data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarColor03">
+                <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/indexPage">Front Page
+                     
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link"  href="/showToDo">To-DO</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/FundValues">Fund values</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/showRssPage">RSS-reader</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                  </li>
+                </ul>
+                <form class="d-flex">
+                  <input class="form-control me-sm-2" id="find"  type="search" placeholder="Search">
+                                                                                <!--LÄHETETÄÄN BTN SEARCH FUNKTIOLLE PARAMETRINA INPUT KENTTÄÄN KIRJOITETTU TEKSTI-->
+                  <button class="btn btn-secondary my-2 my-sm-0"  type="submit" onclick="btnSearch(document.getElementById('find').value)">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+        <h3 class="inxHead">Django App</h3>
+        <p><b>Today is: {% now "j. m. Y " %}</b></p>
+        <p><b>Week is {{weekPlace}}</b></p>
+        <!--Likitys funktioon joka avaa toisen sivun-->
+       
+        <a class="btn btn-primary btn-md" href="/udpRead">UDP-reader</a>
+        <a class="btn btn-primary btn-md" href="/palindromePage">Palindrome checker</a>
+        <a class="btn btn-primary btn-md" href="/systemCheck">System check</a>
+      
+      
+        
+       
+        
+    </body>
+</html>

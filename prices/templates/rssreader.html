@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rss Feeds</title>
+</head>
+
+<body>
+    <form action="/rss-Address/" method="post">
+        {%csrf_token %}
+        <input type="text" name="address" placeholder="Rss address">
+        <input type="submit" value="Get rss">
+    </form>
+    <h3>Rss Feeds</h3>
+    {% for item in feedlist %}
+
+    {{item}}
+    {% endfor %}
+</body>
+
+</html>

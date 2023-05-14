@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit</title>
+    </head>
+    <body>
+        <!--silmukan tuodaan muokattava tietueen kaikki tiedot -->
+        {% for item in todo %}
+        <h3>Edit your Tasks number {{item.id}}</h3>
+        <p>Current:</p>
+        <form action="/edit-post/{{item.id}}/" method="post">
+            {%csrf_token %}
+        <input type="text" name="EditTime" value="{{item.timelimit}}">
+        <br>
+        <input type="text" name="EditTask" value="{{item.task}}">
+        <input type="submit"value="update">
+    </form>
+
+
+
+        {% endfor %}
+    </body>
+</html>
