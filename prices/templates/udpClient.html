@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UDP</title>
+    </head>
+    <body>
+        <h3>Send Udp message</h3>
+        <p hidden>{{ipPlace}}</p>
+        <form action="/udp-send" method="post">
+            {%csrf_token %}
+        <input type="text" name="ip" placeholder="IP-Address" value="{{ipPlace}}">
+        <input type="text" name="msg" placeholder="message">
+        <input type="submit" value="Send UDP">
+    </form>
+    <h3>Send E-mail</h3>
+    <h3>{{mailPlace}}</h3>
+    <form action="/send-mail" method="post">
+        {%csrf_token %}
+    <input type="text" name="mailAdd" placeholder="address@something.com">
+    <input type="text" name="mailMessage" placeholder="Message">
+    <input type="submit" value="Send email">
+</form>
+    
+    </body>
+</html>

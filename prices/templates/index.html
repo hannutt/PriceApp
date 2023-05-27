@@ -24,6 +24,7 @@
         
     </head>
     <body>
+      
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
            
@@ -68,11 +69,14 @@
         <h3 class="inxHead">Django App</h3>
         <p><b>Today is: {% now "j. m. Y " %}</b></p>
         <p><b>Week is {{weekPlace}}</b></p>
+        <p>Today's  random selected quote: <b>{{quotePlace}}</b></p>
         <!--Likitys funktioon joka avaa toisen sivun-->
        
         <a class="btn btn-primary btn-md" href="/udpRead">UDP-reader</a>
         <a class="btn btn-primary btn-md" href="/palindromePage">Palindrome checker</a>
         <a class="btn btn-primary btn-md" href="/systemCheck">System check</a>
+        <a class="btn btn-primary btn-md" href="/udpPage">Send udp/email message</a>
+        <a class="btn btn-primary btn-md" href="/alarmClockPage">Alarm Clock</a>
       
       
         

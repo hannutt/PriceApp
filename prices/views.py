@@ -1,3 +1,7 @@
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+import ssl
 from django.shortcuts import render
 import requests
 from bs4 import BeautifulSoup
@@ -6,22 +10,28 @@ from .models import Todo
 from django.shortcuts import redirect
 import feedparser
 from datetime import datetime
-from datetime import date
+from datetime import date,time
+
+
+
 import psutil
 import platform
+import random
 
 # Create your views here.
-
+quotes = ['A rose by any other name would smell as sweet.','All that glitters is not gold.',
+'Elementary, my dear Watson.','Go ahead, make my day.','Here''s looking at you, kid.','I think therefore I am.']
 def indexPage(request):
     page = requests.get('https://www.viikkonumero.fi')
     soup = BeautifulSoup(page.text, 'html.parser')
     weeks = soup.find('span',{'id':'ugenr'})
+    quote = random.choice(quotes)
 
     for week in weeks:
         result = week.text
         FixedResult = result.replace('Viikko',' ')
         #asetetaan index.html-sivun weekPlace kohtaan FixedResult muuttuja tieto.
-    return render(request,"index.html",{"weekPlace":FixedResult})
+    return render(request,"index.html",{"weekPlace":FixedResult,"quotePlace":quote})
 
 def FundValues(request):
     valueList = []
@@ -117,6 +127,7 @@ def orderTodo(request):
      context = {'Todo':Todolist}
      return render(request,'todo.html',context={'Todo':Todolist,'DayPlace':today_str})
 
+#lasketaan montako päivää tehtävän deadlineen on.
 def TimeLeft(request,idnum):
      #Item = Todo.objects.filter(id=idnum)
      
@@ -178,9 +189,68 @@ def systemCheck(request):
                                            "perPlace":"Percentage usage "+per+" %",
                                            "proPlace":"Processor: "+ platform.processor()
                                          })   
-    
 
+def udpPage(request):
+     hostname = socket.gethostname()
+     global ipAddr
+     ipAddr = socket.gethostbyname(hostname)
+     return render(request,'udpClient.html',{"ipPlace":ipAddr})
+
+def udpClient(request):
+
+          client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+          client.connect((ipAddr,9999))
+          msg = request.POST['msg']
+          msg_bytes = memoryview(msg.encode('utf-8')).tobytes()
+          client.send(msg_bytes).encode('utf-8')
+
+          return render(request,'udpClient.html')
+
+def sendMail(request):
+     subject = "Mail from Django App"
+     body = request.POST['mailMessage']
+     sender_email = "workapptest@yahoo.com"
+     receiver_email = request.POST['mailAdd']
+     password = "birnclvcfpfqscng"
+
+     message = MIMEMultipart()
+     message["From"] = sender_email
+     message["To"] = receiver_email
+     message["Subject"] = subject
+
+     message.attach(MIMEText(body, "plain"))
+     text = message.as_string()
      
+     context = ssl.create_default_context()
+
+     with smtplib.SMTP_SSL("smtp.mail.yahoo.com", 465, context=context) as server:
+     
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email,text)
+        note = 'Mail sent!'
+        return render(request,'udpclient.html',{"mailPlace":note})
+'''
+def udpReceiver(request):
+     hostname = socket.gethostname()
+     ipAddr2 = socket.gethostbyname(hostname)
+     server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+     server.bind((ipAddr2,9999))
+     server.listen()
+
+
+     client,addr = server.accept()
+     msg = (client.recv(1024).decode('utf-8'))
+
+     return render(request,'udpRec.html',{"message":msg})
+'''
+
+def alarmClockPage(request):
+    
+     return render(request,'AlarmClock.html')
+#
+
+          
+
           
 
 

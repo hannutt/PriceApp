@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+  <script src="{% static 'jsClock.js' %}"></script>  
+        <!--SIVUN PÄIVITYS AUTOMAATTISESTI 10 SEK VÄLEIN.
+    <meta http-equiv="refresh" content="1">-->
+        <title>
+            Alarm Clock
+        </title>
+    </head>
+    <body>
+        <h3>Alarm clock</h3>
+        <p>Set alarm time</p>
+        <div id="clock"></div>
+
+        <div id="stopBtnDiv"></div>
+            {%csrf_token %}
+        <input type="number" id="hours" name="hours"placeholder="Hours"><br>
+        <input type="number" id ="minutes" name="minutes"placeholder="Minutes">
+        <input type ="submit" value="Set" onclick="setAlarm()">
+        <input type ="submit" value="Stop" onclick="stopAlarm()">
+        
+    
+    
+    </body>
+</html>
