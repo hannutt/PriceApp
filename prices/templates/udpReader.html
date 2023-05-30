@@ -6,16 +6,15 @@
     <body>
         <h3>UDP-reader</h3>
         <p>Read UDP-data from OPENCPN-application</p>
-        <!--
-        <form action='/readUdp' method="post">
-        <input type="text" name="IPaddress" id="IPaddress" placeholder="IP-Address"><br>
-        <input type="text" name="PortNum" id="PortNum"placeholder="PortNum"><br>
-        <input type="submit" value="Read">
-        <textarea name="textbox" id="textbox" value="{{item}}"></textarea>-->
-        {% for item in udpdata %}
-        {{item}}
-        
+       
+        <form action="/start-reading" action="post">
+        {% for data in context %}
+        {{dataPlace}}
         {% endfor %}
+       
+        
+        
+        <input type="submit" value="Read">
         </form>
     </body>
 </html>

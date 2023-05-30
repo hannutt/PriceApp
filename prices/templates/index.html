@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+      {% load static %}
+      <script src="{% static 'scripts.js' %}"></script>  
         <title>Price app</title>
-        
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">  
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"> </script>  
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"> </script>  
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
     
     <link rel ="stylesheet" href = "https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css">
   
@@ -23,7 +29,9 @@
        
         
     </head>
-    <body>
+    <!--suoritetaan funktio aina sivun latauduttua-->
+    <body onload="randomQuote()">
+      
       
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -69,10 +77,138 @@
         <h3 class="inxHead">Django App</h3>
         <p><b>Today is: {% now "j. m. Y " %}</b></p>
         <p><b>Week is {{weekPlace}}</b></p>
-        <p>Today's  random selected quote: <b>{{quotePlace}}</b></p>
+        <p>Today's  random selected quote:</p> <p id="quotePlace"></p>
+        
+
+        <!--ratingin html-koodi-->
+        <style>  
+          body {  
+            
+              margin : 0px;  
+          }  
+          .fa-star {
+                
+              font-size : 20px;  
+              align-content: center;  
+          }  
+          .container {
+              margin-left: 5px;  
+              height: 100px;  
+              width: 600px;  
+              margin: auto;  
+          }  
+          </style>  
+      </head>  
+      <body>  
+          <div class = "container">  
+             
+             <div class = "con">  
+            
+             <i class = "fa fa-star" aria-hidden = "true" id = "st1"></i>  
+             <i class = "fa fa-star" aria-hidden = "true" id = "st2"></i>  
+             <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i>  
+             <i class = "fa fa-star" aria-hidden = "true" id = "st4"></i>  
+             <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>  
+             </div>  
+          </div>
+          <button id="showBtn">Show ratings</button>    
+          <script>
+          //ratingin jquery koodi  
+              var ratings = []
+              $(document).ready(function() {  
+                $("#st1").click(function() {  
+                    $(".fa-star").css("color", "black");  
+                    $("#st1").css("color", "blue");
+                    //vähennetään lenghtista tarvittava määrä että annettujen tähtimäärä
+                    //näkyy oikein
+                    var rating = $('.fa-star').length -4
+                    //tekstin tallennus muuttujaan quotePlacesta
+                    var quote = $("#quotePlace").text()
+                    alert('You gave '+ rating+' stars to '+quote)
+                    //quoten ja tähtimäärän tallennus listaan.
+                    ratings.push(quote)
+                    ratings.push(rating)
+                    console.log(ratings)
+                    //kutsutaan funktiota äänestyksen jälkeen uudelleen,
+                    //että edellinen jää listalle ja uusi quote tulee näkyviin
+                    randomQuote()
+        
+                });  
+                $("#st2").click(function() {  
+                    $(".fa-star").css("color", "black");  
+                    $("#st1, #st2").css("color", "yellow");  
+                    var rating = $('.fa-star').length -3
+                    var quote = $("#quotePlace").text()
+                    alert('You gave '+ rating+' stars to '+quote)
+                    ratings.push(quote)
+                    ratings.push(rating)
+                    console.log(ratings)
+                    randomQuote()
+        
+                });  
+                $("#st3").click(function() {  
+                    $(".fa-star").css("color", "black")  
+                    $("#st1, #st2, #st3").css("color", "yellow");
+                    var rating = $('.fa-star').length -2
+                    var quote = $("#quotePlace").text()
+                    alert('You gave '+ rating+' stars to '+quote)
+                    ratings.push(quote)
+                    ratings.push(rating)
+                    console.log(ratings)
+                    randomQuote()
+        
+                });  
+                $("#st4").click(function() {  
+                    $(".fa-star").css("color", "black");  
+                    $("#st1, #st2, #st3, #st4").css("color", "yellow");
+                    var rating = $('.fa-star').length -1
+                    var quote = $("#quotePlace").text()
+                    alert('You gave '+ rating+' stars to '+quote)
+                    ratings.push(quote)
+                    ratings.push(rating)
+                    console.log(ratings)
+                    randomQuote()
+                      
+
+        
+                });  
+                $("#st5").click(function() {  
+                    $(".fa-star").css("color", "black");  
+                    $("#st1, #st2, #st3, #st4, #st5").css("color", "yellow");  
+                    var rating = $('.fa-star').length
+                    
+                    var quote = $("#quotePlace").text()
+                    alert('You gave '+ rating+' stars to '+quote)  
+                    ratings.push(quote)
+                    ratings.push(rating)
+                    console.log(ratings)
+                    randomQuote()
+                //listaan tallennettujen arvostelujen näyttö p-tagissa
+                $("#showBtn").click(function() {
+                  var i = 0
+                  
+                  while (i < ratings.length){
+                    //näytetään tulokset ratigsPlace id:llä nimetyssä p-tagissa
+                    ratingsPlace.innerHTML += '<p>'+ratings[i]+'</p>'
+                    i++
+
+                  }
+                 
+
+                })               
+
+                });  
+              });  
+
+        
+        
+
+          </script>
+          <p id="ratingsPlace"></p>
+          
         <!--Likitys funktioon joka avaa toisen sivun-->
        
-        <a class="btn btn-primary btn-md" href="/udpRead">UDP-reader</a>
+        <a class="btn btn-primary btn-md" href="/udpReadPage">UDP-reader</a>
         <a class="btn btn-primary btn-md" href="/palindromePage">Palindrome checker</a>
         <a class="btn btn-primary btn-md" href="/systemCheck">System check</a>
         <a class="btn btn-primary btn-md" href="/udpPage">Send udp/email message</a>

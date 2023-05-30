@@ -12,8 +12,9 @@ body {
 
 .todo {
     margin:auto;
-    background-color: yellow;
+    background-color: #faf44b;
     width:50%;
+    border:3px solid white;
     
     border-radius: 10px;
 }

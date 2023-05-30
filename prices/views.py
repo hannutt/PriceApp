@@ -31,7 +31,7 @@ def indexPage(request):
         result = week.text
         FixedResult = result.replace('Viikko',' ')
         #asetetaan index.html-sivun weekPlace kohtaan FixedResult muuttuja tieto.
-    return render(request,"index.html",{"weekPlace":FixedResult,"quotePlace":quote})
+    return render(request,"index.html",{"weekPlace":FixedResult})
 
 def FundValues(request):
     valueList = []
@@ -65,18 +65,23 @@ def getRss(request):
 
     return render(request,'rssreader.html',context)
 
+def udpReadPage(request):
+     return render(request,'udpReader.html')
+
 def udpRead(request):
-    udpdata = []
-    ipadd = '194.34.132.110'
+    hostname = socket.gethostname()
+     
+    ipAddr = socket.gethostbyname(hostname)
+    
+    
     port = 10110
     sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM,socket.IPPROTO_UDP)
-    sock.bind((ipadd,port))
+    sock.bind((ipAddr,port))
     
     while True:
         data, addr = sock.recvfrom(1024)
-        udpdata.append(data)
-        context = {'udpdata',udpdata}
-        return render(request, 'udpReader.html',context)
+        context = {'data',data}
+        return render(request, 'udpReader.html',context={"dataPlace":data})
     
 def showToDo(request):
     #listataan todo-modelin sisältö
@@ -207,7 +212,7 @@ def udpClient(request):
           return render(request,'udpClient.html')
 
 def sendMail(request):
-     subject = "Mail from Django App"
+     subject = request.POST['subj']
      body = request.POST['mailMessage']
      sender_email = "workapptest@yahoo.com"
      receiver_email = request.POST['mailAdd']
@@ -227,8 +232,7 @@ def sendMail(request):
      
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email,text)
-        note = 'Mail sent!'
-        return render(request,'udpclient.html',{"mailPlace":note})
+        return render(request,'udpclient.html')
 '''
 def udpReceiver(request):
      hostname = socket.gethostname()
@@ -247,21 +251,6 @@ def udpReceiver(request):
 def alarmClockPage(request):
     
      return render(request,'AlarmClock.html')
-#
-
-          
-
-          
-
-
-    
-     
-
-
-
-
-     
-    
 
 '''
 def readUdp(request):

@@ -1,24 +1,56 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <title>UDP</title>
     </head>
     <body>
         <h3>Send Udp message</h3>
         <p hidden>{{ipPlace}}</p>
         <form action="/udp-send" method="post">
+            <script>
+                //jquery funktio p-tagi msg on oletusarvoisesti hidde eli teksti on piilotettu
+                //kun funktioon sidottua painiketta klikataan teksti tulee näkyviin ja katoaa taas
+                //5 sekunnin kuluttua.
+                $(document).ready(function() {
+                    $("#udpBtn").click(function() {
+                        $('#udpMsg').show()
+                        $('#udpMsg').hide(5000)
+        
+                    })
+        
+                })
+            </script>
             {%csrf_token %}
         <input type="text" name="ip" placeholder="IP-Address" value="{{ipPlace}}">
         <input type="text" name="msg" placeholder="message">
-        <input type="submit" value="Send UDP">
+        <input type="submit" name="udpBtn" value="Send UDP">
+        <p hidden id="udpMsg"><b>UDP-Message sent!</b></p>
     </form>
+  
     <h3>Send E-mail</h3>
-    <h3>{{mailPlace}}</h3>
+    
     <form action="/send-mail" method="post">
+        <script>
+            //jquery funktio p-tagi msg on oletusarvoisesti hidden eli teksti on piilotettu
+            //kun funktioon sidottua painiketta klikataan teksti tulee näkyviin ja katoaa taas
+            //5 sekunnin kuluttua.
+            $(document).ready(function() {
+                $("#sendBtn").click(function() {
+                    $('#emailMsg').show()
+                    $('#emailMsg').hide(5000)
+    
+                })
+    
+            })
+        </script>
         {%csrf_token %}
-    <input type="text" name="mailAdd" placeholder="address@something.com">
-    <input type="text" name="mailMessage" placeholder="Message">
-    <input type="submit" value="Send email">
+    <input type="text" name="subj" placeholder="Subject"><br>
+    <input type="text" name="mailAdd" placeholder="address@something.com"><br>
+    <textarea name="mailMessage" placeholder="Message"></textarea> <br>
+    <input type="submit" id="sendBtn" value="Send email">
+    
+<p hidden id="emailMsg"><b>E-mail message sent!</b></p>
 </form>
     
     </body>

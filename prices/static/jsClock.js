@@ -1,7 +1,15 @@
 //globaalin muuttujan alustus, riittää että muuttuja alustetaan
 //funktioiden ulkopuolella. 
 var currentTime = ''
-var sound = new Audio('/static/siren.mp3')
+var sound = new Audio()
+//tallennetaan valitun tiedoston polku+nimi muuttujaan
+var fullName = document.getElementById('fullName').value
+
+function song() {
+    track = URL.createObjectURL(document.getElementsByTagName('sel')[0].files[0]);
+    console.log(track)
+}
+
 setInterval(showTime, 1000);
 function showTime() {
     let time = new Date();
@@ -66,9 +74,24 @@ function setAlarm()
     if (currentTime == final)
     {
         
-        alert('Wake up!')
-        sound.play()
+        alert(fullName)
+       // sound.play(fullName)
         
     }
-
 }
+
+/*
+function selFile() {
+    var sound2 = new Audio()
+    var input =document.createElement('input')
+    input.type='file'
+    
+    input.onchange = _this => {
+        var files = Array.from(input.files)
+        console.log(files)
+        sound2.play('/static/'+files)
+        
+    }
+    input.click()
+}*/
+

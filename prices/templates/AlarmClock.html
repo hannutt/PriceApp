@@ -3,6 +3,7 @@
     <head>
         {% load static %}
   <script src="{% static 'jsClock.js' %}"></script>  
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <!--SIVUN PÄIVITYS AUTOMAATTISESTI 10 SEK VÄLEIN.
     <meta http-equiv="refresh" content="1">-->
         <title>
@@ -20,6 +21,34 @@
         <input type="number" id ="minutes" name="minutes"placeholder="Minutes">
         <input type ="submit" value="Set" onclick="setAlarm()">
         <input type ="submit" value="Stop" onclick="stopAlarm()">
+        <input type="text" id="filepath" placeholder="filepath">
+
+        
+    <input type="file" id="sel">
+    <p id="nameAndPath"></p>
+   <!-- <h4 id="fullName"> Selected file will get her</h4>e -->
+     
+    
+    <script>
+        var selFile = ''
+       
+        var fullName = ''
+        $(document).ready(function() {
+            $('input[type="file"]').change(function(e) {
+                var fpath = document.getElementById('filepath').value
+                selFile = e.target.files[0].name;
+                $("h4").text('Selected file: '+fpath+selFile);
+                //tallennetaan syötetty polku ja filedialogin avulla valittu tiedosto muuttujaan
+                fullName = fpath+selFile
+                console.log(fullName)
+                //toistetaan valittu äänitiedosto
+                var soundObj = new Audio(fullName)
+                soundObj.play(fullName)
+
+ 
+            });
+        });
+    </script>
         
     
     

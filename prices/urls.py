@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
-from .views import saveToDo,getRss,delToDo,editToDo,editToDoPost,TimeLeft,orderTodo,palindromePage,palindromeCheck,udpClient,alarmClockPage,sendMail
+from .views import saveToDo,getRss,delToDo,editToDo,editToDoPost,TimeLeft,orderTodo,palindromePage,\
+    palindromeCheck,udpClient,alarmClockPage,sendMail,udpReadPage,udpRead
 
 
 
@@ -30,7 +31,9 @@ urlpatterns = [
     path('udpPage',views.udpPage),
     path('udp-send',udpClient),
     path('alarmClockPage',views.alarmClockPage),
-    path('send-mail',sendMail)
+    path('send-mail',sendMail),
+    path('udpReadPage',views.udpReadPage),
+    path('start-reading/',udpRead)
     #path('set-alarm',setAlarm)
     #path('udpReceiver',views.udpReceiver)
 ]
