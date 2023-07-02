@@ -9,7 +9,7 @@
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"> </script>  
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
-    
+      
     <link rel ="stylesheet" href = "https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css">
   
     <!--TEKSTINHAKU FUNKTIO-->
@@ -67,7 +67,7 @@
                   </li>
                 </ul>
                 <form class="d-flex">
-                  <input class="form-control me-sm-2" id="find"  type="search" placeholder="Search">
+                  <input class="form-control me-sm-2" id="find" type="search" placeholder="Search">
                                                                                 <!--LÄHETETÄÄN BTN SEARCH FUNKTIOLLE PARAMETRINA INPUT KENTTÄÄN KIRJOITETTU TEKSTI-->
                   <button class="btn btn-secondary my-2 my-sm-0"  type="submit" onclick="btnSearch(document.getElementById('find').value)">Search</button>
                 </form>
@@ -111,7 +111,8 @@
              <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>  
              </div>  
           </div>
-          <button id="showBtn">Show ratings</button>    
+          <button id="showBtn">Show ratings</button>
+        
           <script>
           //ratingin jquery koodi  
               var ratings = []
@@ -125,13 +126,28 @@
                     //tekstin tallennus muuttujaan quotePlacesta
                     var quote = $("#quotePlace").text()
                     alert('You gave '+ rating+' stars to '+quote)
-                    //quoten ja tähtimäärän tallennus listaan.
+                    
+                    //indeksipaikan selvitys
+                    if (ratings.includes(quote))
+                    {
+                      
+                      index=ratings.indexOf(quote)
+                      index = index +1
+                      ratings.splice(index,0,rating)
+                      console.log(ratings)
+                   
+                    }
+                    else {
+                        //quoten ja tähtimäärän tallennus listaan.
                     ratings.push(quote)
                     ratings.push(rating)
                     console.log(ratings)
                     //kutsutaan funktiota äänestyksen jälkeen uudelleen,
                     //että edellinen jää listalle ja uusi quote tulee näkyviin
                     randomQuote()
+
+                    }
+                  
         
                 });  
                 $("#st2").click(function() {  
@@ -140,10 +156,28 @@
                     var rating = $('.fa-star').length -3
                     var quote = $("#quotePlace").text()
                     alert('You gave '+ rating+' stars to '+quote)
-                    ratings.push(quote)
-                    ratings.push(rating)
-                    console.log(ratings)
-                    randomQuote()
+
+                    //kaikki quoten saamat avostelut
+                     //jos quote löytyy listalta eli se on jo arvosteltu
+                     if (ratings.includes(quote))
+                    {
+                      //indeksipaikan selvitys
+                      index=ratings.indexOf(quote)
+                      //LISÄTÄÄN INDEKSIPAIKKAAN 1, ELI taulukon seuraava paikka
+                      index = index +1
+                      //splicella lisätään index-indeksipaikkaan arvostelu, eli jokaisen arvostellun
+                      //quoten yhteydessä näytetään kaikki sen saamat arviot
+                      ratings.splice(index,0,rating)
+                      console.log(ratings)
+                   
+                    } else {
+                      ratings.push(quote)
+                      ratings.push(rating)
+                      console.log(ratings)
+                      randomQuote()
+
+                    }
+                   
         
                 });  
                 $("#st3").click(function() {  
@@ -152,10 +186,26 @@
                     var rating = $('.fa-star').length -2
                     var quote = $("#quotePlace").text()
                     alert('You gave '+ rating+' stars to '+quote)
-                    ratings.push(quote)
-                    ratings.push(rating)
-                    console.log(ratings)
-                    randomQuote()
+
+                    if (ratings.includes(quote))
+                    {
+                      
+                      index=ratings.indexOf(quote)
+                      index = index +1
+                      ratings.splice(index,0,rating)
+                      console.log(ratings)
+                   
+                    }
+                    else {
+                      ratings.push(quote)
+                      ratings.push(rating)
+                      console.log(ratings)
+                      randomQuote()
+
+                    } 
+                    
+                   
+                   
         
                 });  
                 $("#st4").click(function() {  
@@ -164,10 +214,24 @@
                     var rating = $('.fa-star').length -1
                     var quote = $("#quotePlace").text()
                     alert('You gave '+ rating+' stars to '+quote)
-                    ratings.push(quote)
-                    ratings.push(rating)
-                    console.log(ratings)
-                    randomQuote()
+                    
+                    if (ratings.includes(quote))
+                    {
+                      
+                      index=ratings.indexOf(quote)
+                      index = index +1
+                      ratings.splice(index,0,rating)
+                      console.log(ratings)
+                   
+                    } else {
+                      ratings.push(quote)
+                      ratings.push(rating)
+                      console.log(ratings)
+                      randomQuote()
+
+                    }
+                    
+                    
                       
 
         
@@ -179,10 +243,23 @@
                     
                     var quote = $("#quotePlace").text()
                     alert('You gave '+ rating+' stars to '+quote)  
-                    ratings.push(quote)
-                    ratings.push(rating)
-                    console.log(ratings)
-                    randomQuote()
+                    if (ratings.includes(quote))
+                    {
+                      
+                      index=ratings.indexOf(quote)
+                      index = index +1
+                      ratings.splice(index,0,rating)
+                      console.log(ratings)
+                    } else {
+
+
+                      ratings.push(quote)
+                      ratings.push(rating)
+                      console.log(ratings)
+                      randomQuote()
+
+                    }
+                   
                 //listaan tallennettujen arvostelujen näyttö p-tagissa
                 $("#showBtn").click(function() {
                   var i = 0

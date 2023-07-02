@@ -8,11 +8,8 @@
         <p>Read UDP-data from OPENCPN-application</p>
        
         <form action="/start-reading" action="post">
-        {% for data in context %}
-        {{dataPlace}}
-        {% endfor %}
        
-        
+        {{dataPlace}}
         
         <input type="submit" value="Read">
         </form>

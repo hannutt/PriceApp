@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
@@ -12,7 +13,8 @@ import feedparser
 from datetime import datetime
 from datetime import date,time
 
-
+import splitter
+import enchant
 
 import psutil
 import platform
@@ -70,18 +72,16 @@ def udpReadPage(request):
 
 def udpRead(request):
     hostname = socket.gethostname()
-     
     ipAddr = socket.gethostbyname(hostname)
-    
-    
     port = 10110
     sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM,socket.IPPROTO_UDP)
     sock.bind((ipAddr,port))
-    
     while True:
+        
         data, addr = sock.recvfrom(1024)
         context = {'data',data}
-        return render(request, 'udpReader.html',context={"dataPlace":data})
+        return render(request, 'udpReader.html',context)
+
     
 def showToDo(request):
     #listataan todo-modelin sisältö
@@ -162,7 +162,9 @@ def palindromeCheck(request):
           result = 'Word is a palindrome'
           return render(request,'palindrome.html',{"answerPlace":result,"lenPlace":"word length is "+wordStr+ " letters"})
      else:
-          result = 'Word is not a palindrome'
+          #NÄYTETÄÄN sana viimeisestä ensimmäiseen kirjaimeen
+          word= word[::-1]
+          result = word +' is not a palindrome'
           return render(request,'palindrome.html',{"answerPlace":result,"lenPlace":"word length is "+wordStr+ " letters"})
 
 def systemCheck(request):
@@ -251,6 +253,26 @@ def udpReceiver(request):
 def alarmClockPage(request):
     
      return render(request,'AlarmClock.html')
+
+def createAcronym(request):
+     words = []
+     sentence = ''
+     sent = ''
+     wordInput = request.POST['acronymWord']
+     sentence = splitter.split(wordInput)
+     note = ' Can''t solve this. Try english words'
+     for i in sentence:
+          #muuttujaan talletetaan jokaisen taulukossa olevan sanan ensimmäinen kirjain
+          sent += i[0]
+     print(sent)
+          
+
+     if len(sent)==0:
+
+          return render(request,'palindrome.html',{"acronymPlace":note})
+     else:
+
+          return render(request,'palindrome.html',{"acronymPlace":sent})
 
 '''
 def readUdp(request):

@@ -12,5 +12,14 @@
         <input type="submit" value="Check"><br>
         <b>{{answerPlace}}</b> <br> {{lenPlace}}
     </form>
+
+    <h3>Create acronym</h3>
+    <form action = "/create-acronym" method="post">
+        {%csrf_token %}
+        <input type="text" name="acronymWord">
+        <input type="submit" value="Create">
+        <h3>{{acronymPlace}}</h3>
+    </form>
+
     </body>
 </html>
